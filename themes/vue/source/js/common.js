@@ -2,7 +2,6 @@
 
   initMobileMenu()
   if (PAGE_TYPE) {
-    initVersionSelect()
     initSubHeaders()
     initApiSpecLinks()
     initLocationHashFuzzyMatching()
@@ -27,7 +26,7 @@
     }
 
     function createSourceSearchPath(query) {
-      return 'https://github.com/search?utf8=%E2%9C%93&q=repo%3Avuejs%2Fvue+extension%3Ajs+' + encodeURIComponent(query) + '+&type=Code'
+      return 'https://github.com/search?utf8=%E2%9C%93&q=repo%3Azmanim%2Fzman+extension%3Aphp +' + encodeURIComponent(query) + '+&type=Code'
     }
   }
 
@@ -90,25 +89,6 @@
       if (e.target !== menuButton && !sidebar.contains(e.target)) {
         sidebar.classList.remove('open')
       }
-    })
-  }
-
-  /**
-   * Doc version select
-   */
-
-  function initVersionSelect () {
-    // version select
-    document.querySelector('.version-select').addEventListener('change', function (e) {
-      var version = e.target.value
-      var section = window.location.pathname.match(/\/v\d\/(\w+?)\//)[1]
-      if (version === 'SELF') return
-      window.location.assign(
-        'http://' +
-        version +
-        (version && '.') +
-        'vuejs.org/' + section + '/'
-      )
     })
   }
 
