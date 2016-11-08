@@ -10,7 +10,7 @@ The `Zman` class is inherited from the amazing [briannesbitt/Carbon](https://git
 
 ## Getting Started
 
-how to install --- composer
+This is pre-release, so it is not available yet for installation. Check back soon iy"H.
 
 ## Instantiation
 
@@ -30,7 +30,7 @@ $zman = Zman::now();
 
 ## Getters
 
-The getters are implemented via PHP's <em>`__get()`</em> method. This enables access to the value as if it was a property rather than a function call.
+The following getters are implemented via PHP's <em>`__get()`</em> method. This enables access to the value as if it was a property rather than a function call.
 
 ```PHP
 $zman = Carbon::parse('2012-9-5 23:26:11.123789');
@@ -90,6 +90,8 @@ var_dump($zman->year);                            // int(5000)
 
 $zman->year(5050);
 var_dump($zman->year);                            // int(5050)
+
+// etc.
 ```
 
 <p class="tip">Note that only the `month`, `day`, and `year` setters will affect the converted Jewish date. The other setters directly inherit from `Carbon\Carbon` and reflect the Gregorian date.</p>
@@ -148,11 +150,9 @@ Zman::parse('May 31, 2017')->isShavuos();                     // true
 ```
 Leap years are taken care of so you don't need to worry about it.
 
-<p class="tip">Outside of <em>Eretz Yisroel</em> is the default setting. To find the value specific to Israel simply pass a `false` as the second parameter.<br>(e.g. `Zman::dayOfSimchasTorah('5777', false)`)</p>
+<p class="tip">Outside of <em>Eretz Yisroel</em> is the default setting. To find the value specific to Israel pass `false` as the second parameter. (e.g. `Zman::dayOfSimchasTorah('5777', false)`)</p>
 
 ### Yuntif
-
-Use `isYuntif()` check to check if a day is <em>yuntif</em> (which excludes Chol HaMoed).
 
 ``` PHP
 Zman::parse('April 11, 2017')->isPesachYuntif();      // true  - Pesach
@@ -255,7 +255,7 @@ Zman::parse('December 20, 2017')->hasMussaf();   // false - Chanuka
 
 ### Slichos
 
-Besides for checking if a given day has <em>slichos</em>, the first day of <em>slichos</em> for both <em>ashkenazim</em> and <em>sfaradim</em> before the <em>Yomim Noraim</em> is available via a helper method.
+Besides for checking if a given day has <em>slichos</em>, the first day of <em>slichos</em> for both <em>ashkenazim</em> and <em>sfardim</em> before the <em>Yomim Noraim</em> is available via a helper method.
 
 ``` PHP
 Zman::firstDayOfSfardiSlichos('5776')->toFormattedDateString();     // Sep 4, 2016
@@ -270,7 +270,7 @@ Zman::parse('September 11, 2017')->hasSlichos();                    // false
 Zman::parse('December 11, 2017')->hasSlichos();                     // false
 ```
 
-<p class="tip">The default value for <em>slichos</em> is <em>ashkenazi</em>. To check for <em>Safarai</em> values pass `true` as a parameter.</p>
+<p class="tip">The default value for <em>slichos</em> is <em>ashkenazi</em>. To check for <em>sfardi</em> values pass `true` as a parameter.</p>
 
 ## Zmanim (Coming Soon)
 
