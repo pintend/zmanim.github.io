@@ -8,15 +8,100 @@ type: docs
 
 The `Zman` class is inherited from the amazing [briannesbitt/Carbon](https://github.com/briannesbitt/Carbon) which in turn inherits from PHP's [DateTime](http://www.php.net/manual/en/class.datetime.php) class, thus giving us access to some pretty nifty methods.
 
+## Getting Started
+
+how to install --- composer
+
 ## Instantiation
 
-There are three different ways to create a new instance of `Zman`.
+There are four different ways to create a new instance of `Zman`.
 
-```PHP
+``` PHP
 $zman = new Zman('first day of November 2016');
+$zman = new Zman('November 3, 2016');
+
 $zman = Zman::parse('first day of November 2016');
+$zman = Zman::parse('November 3, 2016');
+
+$zman = Zman::createFromDate(1967, 10, 6);
+
 $zman = Zman::now();
 ```
+
+## Getters
+
+The getters are implemented via PHP's <em>`__get()`</em> method. This enables access to the value as if it was a property rather than a function call.
+
+```PHP
+$zman = Carbon::parse('2012-9-5 23:26:11.123789');
+
+var_dump($zman->month);                           // int(13)
+var_dump($zman->day);                             // int(18)
+var_dump($zman->year);                            // int(5772)
+
+// inherited from Carbon\Carbon
+var_dump($zman->hour);                            // int(23)
+var_dump($zman->minute);                          // int(26)
+var_dump($zman->second);                          // int(11)
+var_dump($zman->micro);                           // int(123789)
+var_dump($zman->dayOfWeek);                       // int(3)
+var_dump($zman->dayOfYear);                       // int(248)
+var_dump($zman->weekOfMonth);                     // int(1)
+var_dump($zman->weekOfYear);                      // int(36)
+var_dump($zman->daysInMonth);                     // int(30)
+var_dump($zman->timestamp);                       // int(1346901971)
+var_dump($zman->age);                             // int(4) calculated vs now in the same tz
+var_dump($zman->quarter);                         // int(3)
+```
+
+ <p class="tip">Note that only the `month`, `day`, and `year` getters will return the converted Jewish date. The other getters directly inherit from `Carbon\Carbon` and reflect the Gregorian date.</p>
+
+## Setters
+
+The following setters are implemented via PHP's <em>`__set()`</em> method. No validation is performed whatsoever so only use these methods if you're sure you know what you're doing.
+
+``` PHP
+// day
+$zman = Zman::parse('November 7, 2016');
+var_dump($zman->day);                             // int(6)
+
+$zman->day = 10;
+var_dump($zman->day);                             // int(10)
+
+$zman->day(14);
+var_dump($zman->day);                             // int(14)
+
+// month
+$zman = Zman::parse('November 7, 2016');
+var_dump($zman->month);                           // int(2)
+
+$zman->month = 4;
+var_dump($zman->month);                           // int(4)
+
+$zman->month(6);
+var_dump($zman->month);                           // int(6)
+
+// year
+$zman = Zman::parse('November 7, 2016');
+var_dump($zman->year);                            // int(5777)
+
+$zman->year = 5000;
+var_dump($zman->year);                            // int(5000)
+
+$zman->year(5050);
+var_dump($zman->year);                            // int(5050)
+```
+
+ <p class="tip">Note that only the `month`, `day`, and `year` setters will affect the converted Jewish date. The other setters directly inherit from `Carbon\Carbon` and reflect the Gregorian date.</p>
+
+## String Formats
+## Parshas HaShavua (Coming Soon)
+## Moadim //(boolean -- is, or fetch)
+## Special Tefilos //(boolean -- has)
+## Zmanim (Coming Soon)
+
+
+
 <!-- 
 
 ### silent
