@@ -17,10 +17,11 @@
         <meta name="twitter:description" content="<%- theme.site_description %>">
         <meta name="twitter:image" content="https://<%- theme.root_domain %>/images/logo.svg">
 
-        <link rel="icon" href="/images/logo.svg" type="image/x-icon">
+        <link rel="icon" href="/images/logo.png" type="image/x-icon">
 
         <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600|Roboto Mono' rel='stylesheet' type='text/css'>
         <link href='//fonts.googleapis.com/css?family=Dosis:500&text=Vue.js' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/docsearch.js/2/docsearch.min.css" />
 
         <!-- main page styles -->
         <%- css(isIndex ? 'css/index' : 'css/page') %>
@@ -60,13 +61,11 @@
 
           ga('create', 'UA-87009725-1', 'auto');
           ga('send', 'pageview');
-
         </script>
 
         <!-- search -->
-        <!--<link href="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.css" rel='stylesheet' type='text/css'>
         <%- css('css/search') %>
-        <script src="//cdn.jsdelivr.net/docsearch.js/1/docsearch.min.js"></script>
+        <script src="//cdn.jsdelivr.net/docsearch.js/2/docsearch.min.js"></script>
         <script>
         [
           '#search-query-nav',
@@ -74,13 +73,13 @@
         ].forEach(function (selector) {
           if (!document.querySelector(selector)) return
           docsearch({
-            appId: 'BH4D9OD16A',
-            apiKey: '85cc3221c9f23bfbaa4e3913dd7625ea',
-            indexName: 'vuejs',
-            inputSelector: selector
+            apiKey: '8a4a6b9ab1926a519ff089b095a6519d',
+            indexName: 'zman',
+            inputSelector: selector,
+            debug: true // Set debug to true if you want to inspect the dropdown
           })
-        })
-        </script>-->
+        });
+        </script>
 
         <!-- fastclick -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
