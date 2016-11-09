@@ -1,4 +1,6 @@
-# vuejs.org
+# zmanim.github.io
+
+This site is the documentation for the PHP [Zman](https://github.com/zmanim/zman) extension.
 
 This site is built with [hexo](http://hexo.io/). Site content is written in Markdown format located in `src`. Pull requests welcome!
 
