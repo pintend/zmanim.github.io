@@ -14,7 +14,7 @@ This is pre-release, so it is not available yet for installation. Check back soo
 
 ## Instantiation
 
-There are four different ways to create a new instance of `Zman`.
+There are five different ways to create a new instance of `Zman`.
 
 ``` PHP
 $zman = new Zman('first day of November 2016');
@@ -25,78 +25,95 @@ $zman = Zman::parse('November 3, 2016');
 
 $zman = Zman::createFromDate(1967, 10, 6);
 
+$zman = Zman::createJewishDate(5777, 1, 1);
+
 $zman = Zman::now();
 ```
 
-## Getters
+## Conversions
 
-The following getters are implemented via PHP's <em>`__get()`</em> method. This enables access to the value as if it was a property rather than a function call.
+Every instance of `Zman` contains information about a day's Gregorian calendar date as well as its Jewish calendar date. Thus, for any conversion, simply create a new instance of `Zman` with the day in question (Gregorian or Jewish) and access the desired converted properties.
+
+For example:
 
 ```PHP
-$zman = Carbon::parse('2012-9-5 23:26:11.123789');
+$zman = Zman::createFromDate(1993, 2, 21);
 
-var_dump($zman->month);                           // int(13)
-var_dump($zman->day);                             // int(18)
-var_dump($zman->year);                            // int(5772)
+echo $zman->jewishDay;                               // 30
+echo $zman->jewishMonth;                             // 5
+echo $zman->jewishYear;                              // 5753
+echo $zman->toFormattedJewishDateString();           // 30 Shvat, 5753
+echo $zman->toFormattedJewishHebrewDateString();     // ל׳ שבט, תשנ״ג
 
-// inherited from Carbon\Carbon
-var_dump($zman->hour);                            // int(23)
-var_dump($zman->minute);                          // int(26)
-var_dump($zman->second);                          // int(11)
-var_dump($zman->micro);                           // int(123789)
-var_dump($zman->dayOfWeek);                       // int(3)
-var_dump($zman->dayOfYear);                       // int(248)
-var_dump($zman->weekOfMonth);                     // int(1)
-var_dump($zman->weekOfYear);                      // int(36)
-var_dump($zman->daysInMonth);                     // int(30)
-var_dump($zman->timestamp);                       // int(1346901971)
-var_dump($zman->age);                             // int(4) calculated vs now in the same tz
-var_dump($zman->quarter);                         // int(3)
+
+$zman = Zman::createFromJewishDate(5753, 5, 30);
+
+echo $zman->day;                                     // 21
+echo $zman->month;                                   // 2
+echo $zman->year;                                    // 1993
+echo $zman->toFormattedDateString();                 // Feb 21, 1993
 ```
 
-<p class="tip">Note that only the `month`, `day`, and `year` getters will return the converted Jewish date. The other getters directly inherit from `Carbon\Carbon` and reflect the Gregorian date.</p>
+
+## String Formats
+All of the `toXXXString()` methods defined by [Carbon](http://carbon.nesbot.com/docs/#api-formatting) are also available on `Zman`. Additionally, there are a few methods specific to printing the Jewish date as a string in both English and Hebrew.
+
+```PHP
+$zman = Zman::parse('1993-2-21 14:15:16');
+
+echo $zman->toJewishDateString();                    // 5753-5-30
+echo $zman->toJewishDateTimeString();                // 5753-5-30 14:15:16
+echo $zman->toFormattedJewishDateString();           // 30 Shvat, 5753
+echo $zman->toFormattedJewishHebrewDateString();     // ל׳ שבט, תשנ״ג
+```
+
+Of course, you can always build up your own string by combining the [getters](#Getters).
+
+## Getters
+
+`Zman` inherits all getters from [Carbon](http://carbon.nesbot.com/docs/#api-getters), so you'll always have `month`, `day`, `year`, `hour`, `dayOfWeek`, etc. Additionally, `Zman` provides getters specific to its Jewish date properties.
+
+The getters are implemented via PHP's <em>`__get()`</em> method, enabling access to the value as if it was a property rather than a function call.
+
+```PHP
+$zman = Zman::parse('1993-2-21 23:26:11.123789');
+
+echo $zman->jewishDay;                                // 30
+echo $zman->jewishMonth;                              // 5
+echo $zman->jewishMonthName;                          // Shvat
+echo $zman->jewishYear;                               // 5753
+
+echo $zman->jewishDayHebrew                           // ל׳
+echo $zman->jewishMonthNameHebrew;                    // שבט
+echo $zman->jewishYearHebrew                          // תשנ״ג
+```
 
 ## Setters
 
-The following setters are implemented via PHP's <em>`__set()`</em> method. No validation is performed whatsoever so only use these methods if you're sure you know what you're doing.
+`Zman` inherits all setters from [Carbon](http://carbon.nesbot.com/docs/#api-setters), so you'll always have `month`, `day`, `year`, `hour`, `dayOfWeek`, etc. Additionally, `Zman` provides setters specific to its Jewish date properties. However, no validation is performed whatsoever for the Jewish properties so only use these methods if you're sure you know what you're doing.
+
+The setters are implemented via PHP's <em>`__set()`</em> method, enabling access to the value as if it was a property rather than a function call.
 
 ``` PHP
 // day
-$zman = Zman::parse('November 7, 2016');
-var_dump($zman->day);                             // int(6)
+$zman = Zman::parse('February 21, 1993');
 
-$zman->day = 10;
-var_dump($zman->day);                             // int(10)
+echo $zman->jewishDay                             // 30
+$zman->jewishDay = 10
+echo $zman->jewishDay                             // 10
 
-$zman->day(14);
-var_dump($zman->day);                             // int(14)
+echo $zman->jewishMonth                           // 2
+$zman->jewishMonth = 10
+echo $zman->jewishMonth                           // 10
 
-// month
-$zman = Zman::parse('November 7, 2016');
-var_dump($zman->month);                           // int(2)
-
-$zman->month = 4;
-var_dump($zman->month);                           // int(4)
-
-$zman->month(6);
-var_dump($zman->month);                           // int(6)
-
-// year
-$zman = Zman::parse('November 7, 2016');
-var_dump($zman->year);                            // int(5777)
-
-$zman->year = 5000;
-var_dump($zman->year);                            // int(5000)
-
-$zman->year(5050);
-var_dump($zman->year);                            // int(5050)
-
-// etc.
+echo $zman->jewishYear                            // 5753
+$zman->jewishYear = 10
+echo $zman->jewishYear                            // 10
 ```
 
-<p class="tip">Note that only the `month`, `day`, and `year` setters will affect the converted Jewish date. The other setters directly inherit from `Carbon\Carbon` and reflect the Gregorian date.</p>
+## Addition and Subtraction
 
-## String Formats
+Since `Zman` inherits Carbon, all of the addition and subtraction methods Carbon provides are available (`addDay`, `addMonth`, etc.). See the [Carbon docs](http://carbon.nesbot.com/docs/#api-addsub) for more information.
 
 ## Parshas HaShavua (Coming Soon)
 
@@ -104,55 +121,141 @@ Coming Soon!
 
 ## Moadim
 
-There are convenience methods both for finding the Gregorian date of any holiday for a given year, as well as checking if a specific Gregorian date is any of the holidays.
+In addition to manually converting dates, `Zman` supports finding and checking for all of the Jewish holidays and Moadim. Leap years and days that are <em>nidchech</em> are taken care of so you don't need to worry about it.
 
 ### Holidays
 
+There are convenience methods for finding the Gregorian date of any holiday for a given year, as well as checking if a specific Gregorian date is any of the holidays.
+
+#### Rosh Hashana
 ``` PHP
 Zman::firstDayOfRoshHashana('5777')->toFormattedDateString(); // Oct 3, 2016
 Zman::parse('October 3, 2016')->isRoshHashana();              // true
+```
 
+#### Yom Kippur
+``` PHP
 Zman::dayOfYomKippur('5777')->toFormattedDateString();        // Oct 12, 2016
 Zman::parse('Oct 12, 2016')->isYomKippur();                   // true
+```
 
+#### Sukkos
+``` PHP
 Zman::firstDayOfSukkos('5777')->toFormattedDateString();      // Oct 17, 2016
 Zman::parse('Oct 17, 2016')->isSukkos();                      // true
+```
 
+#### Shmini Atzeres
+``` PHP
 Zman::dayOfShminiAtzeres('5777')->toFormattedDateString();    // Oct 24, 2016
 Zman::parse('Oct 24, 2016')->isShminiAtzeres();               // true
+```
 
+#### Simchas Torah
+``` PHP
 Zman::dayOfSimchasTorah('5777')->toFormattedDateString();     // Oct 25, 2016
 Zman::parse('Oct 25, 2016')->isSimchasTorah();                // true
+```
 
+#### Chanuka
+``` PHP
 Zman::firstDayOfChanuka('5777')->toFormattedDateString();     // Dec 25, 2016
 Zman::parse('Dec 25, 2016')->isChanuka();                     // true
+```
 
+#### Tu Bishvat
+``` PHP
 Zman::dayOfTuBishvat('5777')->toFormattedDateString();        // Feb 11, 2017
 Zman::parse('Feb 11, 2017')->isTuBishvat();                   // true
+```
 
+#### Purim
+``` PHP
 Zman::dayOfPurim('5777')->toFormattedDateString();            // Mar 12, 2017
 Zman::parse('Mar 12, 2017')->isPurim();                       // true
+```
 
+#### Shushan Purim
+``` PHP
 Zman::dayOfShushanPurim('5777')->toFormattedDateString();     // Mar 13, 2017
 Zman::parse('March 13, 2017')->isShushanPurim();              // true
+```
 
+#### Purim Kattan
+``` PHP
 Zman::dayOfPurimKattan('5779')->toFormattedDateString();      // Feb 19, 2019
 Zman::parse('Feb 19, 2019')->isPurimKattan();                 // true
+```
 
+#### Pesach
+``` PHP
 Zman::firstDayOfPesach('5777')->toFormattedDateString();      // Apr 11, 2017
 Zman::parse('Apr 11, 2017')->isPesach();                      // true
+```
 
+#### Pesach Sheni
+``` PHP
 Zman::dayOfPesachSheni('5777')->toFormattedDateString();      // May 10, 2017
 Zman::parse('May 10, 2017')->isPesachSheni();                 // true
+```
 
+#### Shavuos
+``` PHP
 Zman::firstDayOfShavuos('5777')->toFormattedDateString();     // May 31, 2017
 Zman::parse('May 31, 2017')->isShavuos();                     // true
 ```
-Leap years are taken care of so you don't need to worry about it.
 
 <p class="tip">Outside of <em>Eretz Yisroel</em> is the default setting. To find the value specific to Israel pass `false` as the second parameter. (e.g. `Zman::dayOfSimchasTorah('5777', false)`)</p>
 
+
+### Fast Days
+
+There are convenience methods for finding the Gregorian date of any fast day for a given year, as well as checking if a specific Gregorian date is any of the fast days.
+
+#### Yom Kippur
+``` PHP
+Zman::dayOfYomKippur('5777')->toFormattedDateString());       // Oct 12, 2016
+Zman::parse('October 12, 2016')->isYomKippur();               // true
+```
+
+#### Tzom Gedaliah
+``` PHP
+Zman::dayOfTzomGedaliah(5777)->toFormattedDateString());      // Oct 5, 2016
+Zman::parse('October 5, 2016')->isTzomGedaliah();             // true
+```
+
+#### Asara Biteives
+``` PHP
+Zman::dayOfAsaraBiteives(5777)->toFormattedDateString();      // Jan 8, 2017
+Zman::parse('January 8, 2017')->isAsaraBiteives();            // true
+```
+
+#### Taanis Esther
+``` PHP
+Zman::dayOfTaanisEsther(5777)->toFormattedDateString();       // Mar 9, 2017
+Zman::parse('February 28, 2018')->isTaanisEsther();           // true
+```
+
+#### Shiva Asar Bitamuz
+``` PHP
+Zman::dayOfShivaAsarBitamuz(5777)->toFormattedDateString();   // Jul 11, 2017
+Zman::parse('July 11, 2017')->isShivaAsarBitamuz();           // true
+```
+
+#### Tisha Bav
+``` PHP
+Zman::dayOfTishaBav(5777)->toFormattedDateString();           // Aug 1, 2017
+Zman::parse('August 1, 2017')->isTishaBav();                  // true
+```
+
+#### General
+``` PHP
+Zman::parse('October 5, 2016')->isFastDay());                 // true
+```
+
 ### Yuntif
+
+In some cases you may want to check if it is actually <em>Yuntif</em>. Here's how you can:
 
 ``` PHP
 Zman::parse('April 11, 2017')->isPesachYuntif();      // true  - Pesach
@@ -169,10 +272,12 @@ Zman::parse('December 17, 2017')->isYuntif();         // false - Chanuka
 
 ### Chol Hamoed
 
+In some cases you may want to check if it is <em>Chol Hamoed</em>. Here's how you can:
+
 ``` PHP
+Zman::parse('April 13, 2017')->isCholHamoed();          // true
 Zman::parse('April 13, 2017')->isCholHamoedPesach();    // true
 Zman::parse('October 19, 2016')->isCholHamoedSukkos();  // true
-Zman::parse('April 13, 2017')->isCholHamoed();          // true
 ```
 
 ### Rosh Chodesh
@@ -180,17 +285,6 @@ Zman::parse('April 13, 2017')->isCholHamoed();          // true
 Zman::parse('November 1, 2016')->isRoshChodesh();       // true
 Zman::parse('November 2, 2016')->isRoshChodesh();       // true
 Zman::parse('November 3, 2016')->isRoshChodesh();       // false
-```
-
-### Fast Days
-``` PHP
-Zman::parse('October 12, 2016')->isYomKippur();         // true
-Zman::parse('October 5, 2016')->isTzomGedaliah();       // true
-Zman::parse('January 8, 2017')->isAsaraBiteives();      // true
-Zman::parse('February 28, 2018')->isTaanisEsther();     // true
-Zman::parse('July 11, 2017')->isShivaAsarBitamuz();     // true
-Zman::parse('August 1, 2017')->isTishaBav();            // true
-Zman::parse('October 5, 2016')->isFastDay());           // true
 ```
 
 ### Aseres Yimei Teshuva
@@ -211,7 +305,7 @@ Zman::parse('October 23, 2017')->isAseresYimeiTeshuva();   // false
 
 ## Davening
 
-A few handy boolean checks have been implemented to check for special additions to <em>davening</em>.
+A few handy **boolean** checks have been implemented to check for special additions to <em>davening</em>.
 
 ### Leining
 
