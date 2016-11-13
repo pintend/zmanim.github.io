@@ -10,7 +10,20 @@ The `Zman` class is inherited from the amazing [briannesbitt/Carbon](https://git
 
 ## Getting Started
 
-This is pre-release, so it is not available yet for installation. Check back soon iy"H.
+#### Use Composer
+
+```bash
+$ composer require zman/zman
+```
+
+``` PHP
+<?php
+
+use Zman\Zman;
+
+printf("Now: %s", Zman::now()->toFormattedJewishDateString());
+```
+
 
 ## Instantiation
 
