@@ -108,7 +108,6 @@ echo $zman->jewishYearHebrew                          // תשנ״ג
 The setters are implemented via PHP's <em>`__set()`</em> method, enabling access to the value as if it was a property rather than a function call.
 
 ``` PHP
-// day
 $zman = Zman::parse('February 21, 1993');
 
 echo $zman->jewishDay                             // 30
