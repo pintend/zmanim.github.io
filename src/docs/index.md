@@ -127,9 +127,17 @@ echo $zman->jewishYear                            // 10
 
 Since `Zman` inherits Carbon, all of the addition and subtraction methods Carbon provides are available (`addDay`, `addMonth`, etc.). See the [Carbon docs](http://carbon.nesbot.com/docs/#api-addsub) for more information.
 
-## Parshas HaShavua (Coming Soon)
+## Parshas HaShavua
 
-Coming Soon!
+The <em>Parshas Hashavua </em> for any date can be retrieved via the `parsha` getter. A few examples are shown below.
+
+``` PHP
+Zman::parse('10/26/16')->parsha          // Breishis
+Zman::parse('11/1/16')->parsha           // Noach
+Zman::parse('2/22/17')->parsha           // Mishpatim
+Zman::parse('5/4/17')->parsha            // Acharei Mos - Kedoshim
+Zman::parse('9/21/17')->parsha           // Haazinu
+```
 
 ## Moadim
 
@@ -321,6 +329,8 @@ A few handy **boolean** checks have been implemented to check for special additi
 
 ### Leining
 
+To check if a day has leining, just use the `hasLeining` method.
+
 ``` PHP
 Zman::parse('November 7, 2016')->hasLeining();    // true - Monday
 Zman::parse('November 10, 2016')->hasLeining();   // true - Thursday
@@ -334,6 +344,22 @@ Zman::parse('March 12, 2017')->hasLeining();      // true - Purim
 
 Zman::parse('November 6, 2016')->hasLeining();    // false - Average day
 ```
+
+To check if a day has leining during a specific minyan, use the `leiningAt` method as shown below.
+``` PHP
+// Weekdays
+Zman::parse('November 7, 2016')->leiningAt('shacharis')     // Lech Licha
+
+// Holidays
+Zman::parse('December 27, 2016')->leiningAt('shacharis')    // Chanuka
+
+// Shabbos Mincha
+Zman::parse('November 12, 2016')->leiningAt('mincha')       // Vayera
+
+// Shabbos & Rosh Chodesh
+Zman::parse('January 28, 2017')->leiningAt('shacharis')     // Vaeira & Rosh Chodesh
+```
+
 
 ### Hallel
 
