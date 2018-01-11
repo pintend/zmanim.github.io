@@ -139,6 +139,15 @@ Zman::parse('5/4/17')->parsha            // Acharei Mos - Kedoshim
 Zman::parse('9/21/17')->parsha           // Haazinu
 ```
 
+In addition, the <em>Parshas Hashavua</em> can be retrieved in Hebrew.
+``` PHP
+Zman::parse('10/26/16')->parshaHebrew          // בראשית
+Zman::parse('11/1/16')->parshaHebrew           // נח
+Zman::parse('2/22/17')->parshaHebrew           // משפטים
+Zman::parse('5/4/17')->parshaHebrew            // אחרי מות - קדושים
+Zman::parse('9/21/17')->parshaHebrew           // האזינו
+```
+
 ## Moadim
 
 In addition to manually converting dates, `Zman` supports finding and checking for all of the Jewish holidays and Moadim. Leap years and days that are <em>nidchech</em> are taken care of so you don't need to worry about it.
