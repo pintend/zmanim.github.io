@@ -8,11 +8,11 @@
       }
 
       .cls-1 {
-        stroke: #666;
+        stroke: #BDCEEB;
       }
 
       .cls-2 {
-        stroke: #58527b;
+        stroke: #72A3E5;
       }
     </style>
   </defs>

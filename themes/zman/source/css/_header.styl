@@ -1,8 +1,7 @@
 $header-height = 40px
 
 #header
-    background-color #fff
-    height: $heading-inner-height
+    height 41px
     padding $heading-padding-vertical 60px
     position relative
     z-index 2
@@ -12,6 +11,10 @@ body.docs
         position fixed
         width 100%
         top 0
+        background-color #1644ad
+        background linear-gradient(118deg, #328bf2, #1644ad)
+        box-shadow 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)
+
     #nav
         position fixed
 
@@ -30,42 +33,91 @@ body.docs
         display inline-block
         position relative
         margin 0 .6em
+        
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration
+    -webkit-appearance:none
+        
+#search-form
+    .fas
+        margin-left -20px
+        
+.search-query
+    outline none
+    background transparent
+    border none
+    
+::placeholder
+    color white
+    opacity 1
 
-.nav-link
-    padding-bottom 3px
-    &:hover, &.current
-        border-bottom 3px solid $purple
+:-ms-input-placeholder
+    color white
+
+::-ms-input-placeholder
+    color white
 
 .search-query
-    height 30px
-    line-height 30px
-    box-sizing border-box
-    padding 0 15px 0 30px
-    border 1px solid #e3e3e3
-    color $dark
+	-webkit-appearance textfield
+	-webkit-box-sizing content-box
+	font-family inherit
+	font-size 100%
+
+	padding 9px 10px 9px 32px
+	width 55px
+	
+	-webkit-transition all .5s
+	-moz-transition all .5s
+	transition all .5s
+
+.search-query:focus
+	width 130px
+    background transparent
     outline none
-    border-radius 15px
-    margin-right 10px
-    transition border-color .2s ease
-    background #fff url(/images/search.png) 8px 5px no-repeat
-    background-size 20px
-    vertical-align middle !important
-    &:focus
-        border-color $purple
+    border none
+	-webkit-box-shadow none
+	-moz-box-shadow none
+	box-shadow none
+
+#search-form input[type=search]
+	width 1px
+	padding-left 10px
+	color white
+	cursor pointer
+#search-form input[type=search]:focus
+	width 130px
+	cursor auto
+
+.sidebar
+    #search-form input[type=search]
+        width 130px
+        border-bottom 1px solid $brand
+        color $dark
+
+    ::placeholder
+        color $dark
+        opacity 1
+
+    :-ms-input-placeholder
+        color $dark
+
+    ::-ms-input-placeholder
+        color $dark
 
 #logo
     display inline-block
     font-size 1.5em
     line-height $header-height
-    color $dark
+    color white !important
     font-family $logo-font
     font-weight 500
     img
         vertical-align middle
         margin-right 6px
-        width $header-height
-        height $header-height
-
+        height 25px
+        
 #mobile-bar
     position fixed
     top 0
@@ -75,20 +127,23 @@ body.docs
     background-color #fff
     z-index 9
     display none
-    box-shadow 0 0 2px rgba(0,0,0,.25)
+    box-shadow 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12)
+    background linear-gradient(118deg, #328bf2, #1644ad)
     .menu-button
         position absolute
         width 24px
         height 24px
         top 8px
         left 12px
-        background url(../images/menu.png) center center no-repeat
+        background url(../images/menu.svg) center center no-repeat
+        fill white
         background-size 24px
+        cursor pointer
     .logo
         position absolute
         width 30px
         height 30px
-        background url(../images/logo.png) center center no-repeat
+        background url(../images/logo.svg) center center no-repeat
         top 5px
         left 50%
         margin-left -15px

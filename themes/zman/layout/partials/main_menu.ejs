@@ -1,6 +1,7 @@
 <li>
-  <form id="search-form">
-    <input type="text" id="search-query-<%- context %>" class="search-query st-default-search-input">
-  </form>
+    <form id="search-form">
+        <input type="search" id="search-query-<%- context %>" class="search-query st-default-search-input" placeholder="Search...">
+        <i class="fas fa-search nav-link"></i>
+    </form>
 </li>
-<li><a href="https://github.com/zmanim/zman" target="_blank" class="nav-link<%- page.path.match(/github/) ? ' current' : '' %>">Github</a></li>
+<li><a href="https://github.com/zmanim/zman" target="_blank" class="nav-link<%- page.path.match(/github/) ? ' current' : '' %>"><i class="fab fa-github"></i></a></li>

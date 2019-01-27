@@ -58,7 +58,6 @@ echo $zman->jewishYear;                              // 5753
 echo $zman->toFormattedJewishDateString();           // 30 Shvat, 5753
 echo $zman->toFormattedJewishHebrewDateString();     // ל׳ שבט, תשנ״ג
 
-
 $zman = Zman::createFromJewishDate(5753, 5, 30);
 
 echo $zman->day;                                     // 21
@@ -100,6 +99,19 @@ echo $zman->jewishDayHebrew                           // ל׳
 echo $zman->jewishMonthNameHebrew;                    // שבט
 echo $zman->jewishYearHebrew                          // תשנ״ג
 ```
+
+An additional set of getters is available to summarize the current day's holidays.
+
+```PHP
+$zman = Zman::parse('April 11, 2017');
+$zman->holidays;                              // ['Pesach']
+$zman->holidaysHebrew;                        // ['פסח']
+
+$zman = Zman::parse('December 30, 2016');
+$zman->holidays;                              // ['Rosh Chodesh', 'Chanuka']
+```
+
+More on holidays can be found in the [Moadim](/docs/#Moadim) section.
 
 ## Setters
 
@@ -412,7 +424,3 @@ Zman::parse('December 11, 2017')->hasSlichos();                     // false
 ```
 
 <p class="tip">The default value for <em>slichos</em> is <em>ashkenazi</em>. To check for <em>sfardi</em> values pass `true` as a parameter.</p>
-
-## Zmanim (Coming Soon)
-
-Coming Soon!
