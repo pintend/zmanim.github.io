@@ -580,6 +580,8 @@ body {
 }
 #hero {
   padding: 80px 40px;
+  position: relative;
+  z-index: 2;
 }
 #hero .inner {
   max-width: 900px;
